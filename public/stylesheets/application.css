@@ -1,0 +1,161 @@
+/* Retro Mac OS styling */
+
+@import url('https://fonts.googleapis.com/css2?family=Chicago&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Chicago", "Geneva", "Charcoal", "Lucida Grande", "Helvetica Neue", sans-serif;
+  font-size: 12px;
+  image-rendering: pixelated;
+}
+
+/* Desktop background — classic Mac OS teal/blue pattern */
+.mac-desktop {
+  min-height: 100vh;
+  background-color: #666699;
+  background-image:
+    linear-gradient(45deg, #555588 25%, transparent 25%),
+    linear-gradient(-45deg, #555588 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #555588 75%),
+    linear-gradient(-45deg, transparent 75%, #555588 75%);
+  background-size: 4px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* Window */
+.mac-window {
+  background: #ffffff;
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px #000000;
+  width: 360px;
+}
+
+/* Title bar */
+.title-bar {
+  background: #ffffff;
+  border-bottom: 2px solid #000000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 6px;
+  height: 20px;
+  background-image:
+    repeating-linear-gradient(
+      transparent,
+      transparent 1px,
+      #000000 1px,
+      #000000 2px
+    );
+}
+
+.title-bar-text {
+  font-size: 12px;
+  font-weight: bold;
+  color: #000000;
+  text-align: center;
+  background: #ffffff;
+  padding: 0 8px;
+  line-height: 14px;
+}
+
+.title-bar-buttons {
+  width: 16px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+.close-box {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid #000000;
+  background: #ffffff;
+}
+
+.resize-box {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid #000000;
+  background: #ffffff;
+  position: relative;
+}
+
+.resize-box::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 8px;
+  height: 8px;
+  border-top: 1.5px solid #000000;
+  border-left: 1.5px solid #000000;
+}
+
+/* Window body */
+.window-body {
+  padding: 24px 30px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Dice area */
+.dice-area {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.die {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #000000;
+  padding: 6px;
+  background: #ffffff;
+  box-shadow: 1px 1px 0px #000000;
+}
+
+/* Result text */
+.result {
+  font-size: 14px;
+  color: #000000;
+  text-align: center;
+}
+
+/* Retro Mac-style button */
+.mac-button {
+  display: inline-block;
+  background: #ffffff;
+  color: #000000;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 6px 24px;
+  border: 2px solid #000000;
+  border-radius: 12px;
+  box-shadow: 1px 1px 0px #000000;
+  cursor: pointer;
+  text-align: center;
+}
+
+.mac-button:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+.mac-button:active {
+  box-shadow: none;
+  transform: translate(1px, 1px);
+}

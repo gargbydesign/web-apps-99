@@ -1,0 +1,426 @@
+<%
+  die1 = rand(1..6)
+  die2 = rand(1..6)
+  total = die1 + die2
+
+  # Fun messages based on roll
+  messages = {
+    2 => "Snake eyes! Yikes.",
+    3 => "Not great, not terrible.",
+    4 => "Could be worse!",
+    5 => "Meh.",
+    6 => "Average Joe.",
+    7 => "Lucky number seven!",
+    8 => "Not bad at all!",
+    9 => "Nice roll!",
+    10 => "Now we're cooking!",
+    11 => "Hot dice!",
+    12 => "Boxcars! Perfect roll!"
+  }
+%>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Geneva", "Charcoal", "Lucida Grande", "Helvetica Neue", sans-serif;
+    font-size: 12px;
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  /* ===== MENU BAR ===== */
+  .menu-bar {
+    background: #ffffff;
+    border-bottom: 2px solid #000000;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+  }
+
+  .menu-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .apple-logo {
+    font-size: 16px;
+    line-height: 20px;
+    cursor: default;
+  }
+
+  .menu-item {
+    font-size: 12px;
+    font-weight: bold;
+    cursor: default;
+    padding: 0 4px;
+    line-height: 20px;
+  }
+
+  .menu-item:hover {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  .menu-right {
+    font-size: 12px;
+    font-weight: bold;
+    cursor: default;
+  }
+
+  /* ===== DESKTOP ===== */
+  .mac-desktop {
+    min-height: 100vh;
+    background-color: #666699;
+    background-image:
+      linear-gradient(45deg, #555588 25%, transparent 25%),
+      linear-gradient(-45deg, #555588 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #555588 75%),
+      linear-gradient(-45deg, transparent 75%, #555588 75%);
+    background-size: 4px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    padding-top: 60px;
+    position: relative;
+  }
+
+  /* ===== DESKTOP ICONS ===== */
+  .desktop-icons {
+    position: absolute;
+    top: 32px;
+    right: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .desktop-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: default;
+  }
+
+  .icon-graphic {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    image-rendering: pixelated;
+  }
+
+  .icon-label {
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 1px 1px 0px #000000;
+    max-width: 70px;
+  }
+
+  /* ===== WINDOW ===== */
+  .mac-window {
+    background: #ffffff;
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0px #000000;
+    width: 400px;
+    animation: windowOpen 0.2s ease-out;
+  }
+
+  @keyframes windowOpen {
+    from { transform: scale(0.3); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  /* ===== TITLE BAR ===== */
+  .title-bar {
+    background: #ffffff;
+    border-bottom: 2px solid #000000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px 6px;
+    height: 20px;
+    background-image:
+      repeating-linear-gradient(
+        transparent,
+        transparent 1px,
+        #000000 1px,
+        #000000 2px
+      );
+  }
+
+  .title-bar-text {
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    text-align: center;
+    background: #ffffff;
+    padding: 0 8px;
+    line-height: 14px;
+  }
+
+  .title-bar-buttons {
+    width: 16px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+  }
+
+  .close-box {
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid #000000;
+    background: #ffffff;
+  }
+
+  .resize-box {
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid #000000;
+    background: #ffffff;
+    position: relative;
+  }
+
+  .resize-box::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 8px;
+    height: 8px;
+    border-top: 1.5px solid #000000;
+    border-left: 1.5px solid #000000;
+  }
+
+  /* ===== WINDOW BODY ===== */
+  .window-body {
+    padding: 20px 30px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    background: #ffffff;
+  }
+
+  .happy-mac {
+    font-size: 48px;
+    line-height: 1;
+    image-rendering: pixelated;
+  }
+
+  .window-divider {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #ffffff;
+  }
+
+  /* ===== DICE ===== */
+  .dice-area {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .die {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #000000;
+    padding: 6px;
+    background: #ffffff;
+    box-shadow: 1px 1px 0px #000000;
+    transition: transform 0.1s;
+  }
+
+  .die:hover {
+    transform: rotate(-5deg);
+  }
+
+  .result {
+    font-size: 14px;
+    color: #000000;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .flavor-text {
+    font-size: 11px;
+    color: #444444;
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* ===== SCORE DISPLAY ===== */
+  .score-display {
+    font-family: 'VT323', monospace;
+    font-size: 32px;
+    background: #000000;
+    color: #33ff33;
+    padding: 6px 20px;
+    border: 2px inset #888888;
+    letter-spacing: 4px;
+    min-width: 80px;
+    text-align: center;
+  }
+
+  /* ===== BUTTON ===== */
+  .mac-button {
+    display: inline-block;
+    background: #ffffff;
+    color: #000000;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 6px 28px;
+    border: 2px solid #000000;
+    border-radius: 14px;
+    box-shadow: 2px 2px 0px #000000;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.05s;
+  }
+
+  .mac-button:hover {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  .mac-button:active {
+    box-shadow: none;
+    transform: translate(2px, 2px);
+  }
+
+  .mac-button-primary {
+    background: #000000;
+    color: #ffffff;
+    border: 3px solid #000000;
+    box-shadow: none;
+    border-radius: 16px;
+    padding: 6px 28px;
+  }
+
+  .mac-button-primary:hover {
+    background: #333333;
+  }
+
+  /* ===== STATUS BAR ===== */
+  .status-bar {
+    border-top: 1px solid #aaaaaa;
+    background: #dddddd;
+    padding: 3px 10px;
+    font-size: 10px;
+    color: #333333;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ===== FOOTER TEXT ===== */
+  .footer-text {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #aaaacc;
+    font-size: 10px;
+    text-shadow: 1px 1px 0px #44446688;
+  }
+</style>
+
+<!-- Menu Bar -->
+<div class="menu-bar">
+  <div class="menu-left">
+    <span class="apple-logo">&#63743;</span>
+    <span class="menu-item">File</span>
+    <span class="menu-item">Edit</span>
+    <span class="menu-item">View</span>
+    <span class="menu-item">Special</span>
+  </div>
+  <div class="menu-right">
+    <span id="menu-clock"></span>
+  </div>
+</div>
+
+<!-- Desktop -->
+<div class="mac-desktop">
+
+  <!-- Desktop Icons -->
+  <div class="desktop-icons">
+    <div class="desktop-icon">
+      <div class="icon-graphic">&#128190;</div>
+      <div class="icon-label">Macintosh HD</div>
+    </div>
+    <div class="desktop-icon">
+      <div class="icon-graphic">&#128465;</div>
+      <div class="icon-label">Trash</div>
+    </div>
+  </div>
+
+  <!-- Window -->
+  <div class="mac-window">
+    <div class="title-bar">
+      <div class="title-bar-buttons">
+        <div class="close-box"></div>
+      </div>
+      <div class="title-bar-text">Dice Roller</div>
+      <div class="title-bar-buttons">
+        <div class="resize-box"></div>
+      </div>
+    </div>
+    <div class="window-body">
+      <div class="happy-mac">&#128421;</div>
+      <hr class="window-divider">
+      <div class="dice-area">
+        <img src="/images/dice/<%= die1 %>.svg" class="die" alt="Die showing <%= die1 %>">
+        <img src="/images/dice/<%= die2 %>.svg" class="die" alt="Die showing <%= die2 %>">
+      </div>
+      <div class="score-display"><%= total %></div>
+      <div class="result">You rolled a <%= total %>!</div>
+      <div class="flavor-text"><%= messages[total] %></div>
+      <hr class="window-divider">
+      <a href="/dice" class="mac-button-primary">Roll Again</a>
+    </div>
+    <div class="status-bar">
+      <span>2 dice loaded</span>
+      <span>Lucky? Maybe.</span>
+    </div>
+  </div>
+
+  <div class="footer-text">Macintosh Dice Roller &bull; System 7.5.3</div>
+</div>
+
+<script>
+  // Live clock in the menu bar
+  function updateClock() {
+    var now = new Date();
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12;
+    h = h ? h : 12;
+    m = m < 10 ? '0' + m : m;
+    document.getElementById('menu-clock').textContent = h + ':' + m + ' ' + ampm;
+  }
+  updateClock();
+  setInterval(updateClock, 30000);
+</script>
