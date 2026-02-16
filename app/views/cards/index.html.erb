@@ -1,0 +1,27 @@
+<%
+card_value = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]
+card_suit = ["Hearts", "Clubs", "Diamonds", "Spades"]
+
+#Build a deck first so the deck has unique cards
+deck = Array.new
+for value in card_value
+  for suit in card_suit
+  deck.push("#{value} of #{suit}")
+  end
+end
+
+poker_hand = deck.sample(52)
+
+# card_1 = "#{card_value.sample} of #{card_suit.sample}"
+# card_2 = "#{card_value.sample} of #{card_suit.sample}"
+# card_3 = "#{card_value.sample} of #{card_suit.sample}"
+# card_4 = "#{card_value.sample} of #{card_suit.sample}"
+# card_5 = "#{card_value.sample} of #{card_suit.sample}"
+%>
+
+<h1>Your Poker Hand</h1>
+<ul>
+<% for card in poker_hand %>
+  <li><%= card %></li>
+<% end %>
+</ul>
