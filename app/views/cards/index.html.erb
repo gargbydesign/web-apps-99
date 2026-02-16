@@ -10,18 +10,19 @@ for value in card_value
   end
 end
 
-poker_hand = deck.sample(52)
+# Shuffle the deck and pick a hand
+deck = deck.shuffle
+hand_size = 5
+hand = deck[0, hand_size]
 
-# card_1 = "#{card_value.sample} of #{card_suit.sample}"
-# card_2 = "#{card_value.sample} of #{card_suit.sample}"
-# card_3 = "#{card_value.sample} of #{card_suit.sample}"
-# card_4 = "#{card_value.sample} of #{card_suit.sample}"
-# card_5 = "#{card_value.sample} of #{card_suit.sample}"
 %>
 
-<h1>Your Poker Hand</h1>
+<h1>Your Hand (<%= hand_size %> cards)</h1>
+
 <ul>
-<% for card in poker_hand %>
+<% for card in hand %>
   <li><%= card %></li>
 <% end %>
 </ul>
+
+
